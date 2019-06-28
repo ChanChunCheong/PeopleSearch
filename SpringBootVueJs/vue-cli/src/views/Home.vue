@@ -37,14 +37,35 @@ export default {
         .catch(err => console.log(err))
     }
     */
+    addTodo (newTodo) {
+      var params = new URLSearchParams()
+      const { name, location } = newTodo
+      params.append('name', name)
+      params.append('location', location)
+      console.log(name)
+      console.log(location)
+      AXIOS.get('/all?' + params)
+        .then(res => {
+          // this.todos = res.data
+          console.log(res.data)
+          console.log(params.toString())
+        })
+        .catch(err => console.log(err))
+      // AXIOS.get('/all/${name}/${location}')
+      //   .then(res => {
+      //     this.todos = res.data
+      //     console.log(res.data)
+      //   })
+      //   .catch(err => console.log(err))
+    }
   },
   created () {
-    AXIOS.get('/all/')
-      .then(res => {
-        this.todos = res.data
-        console.log(res.data)
-      })
-      .catch(err => console.log(err))
+    // AXIOS.get('/all/')
+    //   .then(res => {
+    //     this.todos = res.data
+    //     console.log(res.data)
+    //   })
+    //   .catch(err => console.log(err))
   }
 }
 </script>

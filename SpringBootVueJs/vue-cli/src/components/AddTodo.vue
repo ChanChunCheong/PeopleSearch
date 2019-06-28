@@ -1,7 +1,8 @@
 <template>
   <div>
     <form @submit.prevent="addTodo">
-      <input type="text" v-model="title" name="title" placeholder="Search person...">
+      <input type="text" v-model="name" name="name" placeholder="Name">
+      <input type="text" v-model="location" name="location" placeholder="Location">
       <input type="submit" value="Search" class="btn">
     </form>
   </div>
@@ -13,18 +14,20 @@ export default {
   name: 'AddTodo',
   data () {
     return {
-      title: ''
+      name: '',
+      location: ''
     }
   },
   methods: {
     addTodo () {
       const newTodo = {
-        title: this.title,
-        completed: false
+        name: this.name,
+        location: this.location
       }
       // Send up to parent
       this.$emit('add-todo', newTodo)
-      this.title = ''
+      this.name = ''
+      this.location = ''
     }
   }
 }

@@ -3,22 +3,31 @@ package com.example.demo.controller;
 import com.example.demo.document.ProfileDocument;
 import com.example.demo.service.ProfileService;
 
+import kafka.Consumer;
+import kafka.KafkaConstant;
+import kafka.Producer;
+import com.example.demo.worker.Worker;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController()
 public class ProfileController {
 	private ProfileService service;
+	private Producer producer;
 
     @Autowired
-    public ProfileController(ProfileService service) {
+    public ProfileController(ProfileService service) throws IOException{
 
         this.service = service;
+        this.producer = new Producer();
     }
 
     @GetMapping("/test")
@@ -47,8 +56,12 @@ public class ProfileController {
     }
 
     @GetMapping("/all")
-    public List<ProfileDocument> findAll() throws Exception {
-        return service.findAll();
+    @ResponseBody
+    public List<ProfileDocument> findAll(@RequestParam String name, @RequestParam String location) throws Exception {
+    	producer.sendMessage("test", "Hello");
+    	System.out.println(name);
+        System.out.println(location);
+    	return service.findAll();
     }
 
     @GetMapping(value = "/search")

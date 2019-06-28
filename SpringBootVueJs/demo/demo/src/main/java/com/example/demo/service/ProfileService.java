@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.document.ProfileDocument;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -28,7 +30,13 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
+
+import kafka.Consumer;
+import kafka.KafkaConstant;
+import kafka.Producer;
+import com.example.demo.worker.Worker;
 
 import static com.example.demo.util.Constant.INDEX;
 import static com.example.demo.util.Constant.TYPE;
@@ -39,14 +47,14 @@ public class ProfileService {
 
 
     private RestHighLevelClient client;
-
-
+    private Producer producer;
     private ObjectMapper objectMapper;
 
     @Autowired
-    public ProfileService(RestHighLevelClient client, ObjectMapper objectMapper) {
+    public ProfileService(RestHighLevelClient client, ObjectMapper objectMapper) throws IOException{
         this.client = client;
         this.objectMapper = objectMapper;
+        this.producer = new Producer(); 
     }
 
     /*
@@ -68,6 +76,7 @@ public class ProfileService {
             try {
                 GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
                 Map<String, Object> resultMap = getResponse.getSource();
+                producer.sendMessage("test", "Hello");
                 return convertMapToProfileDocument(resultMap);
             } catch (Exception e) {
                 	System.out.println(e);
