@@ -1,14 +1,15 @@
 <template>
   <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
+    <img v-bind:src="todo.imgSrc" alt="W3Schools.com">
     <p>Name: {{todo.name}} </p>
-    <p>Link: {{todo.link}} </p>
+    Link: <a v-bind:href="todo.baselink">{{todo.link}}</a>
     <p>Location: {{todo.location}} </p>
     <p>Date joined: {{todo.dateJoined}} </p>
     <p>Description: {{todo.description}} </p>
-    <p>
+    <!-- <p>
       <input type="checkbox" v-on:change="markComplete" v-bind:checked="todo.completed">
       <button @click="$emit('del-todo', todo.id)" class="del">x</button>
-      </p>
+      </p> -->
   </div>
 </template>
 

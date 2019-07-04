@@ -9,7 +9,10 @@ import java.util.List;
 public class ProfileDocument {
     private String dateJoined;
     private String name;
-    private String link; 
+    private String nameScore;
+    private String link;
+    private String baselink; 
+    private String imgSrc; 
     private String description;
     private String location;
     
@@ -19,8 +22,21 @@ public class ProfileDocument {
     public String getdateJoined(){
     	return this.dateJoined;
     }
+    public int getnameScore(){
+    	int score = 0;
+    	if (this.nameScore != null) {
+    		score = Integer.parseInt(this.nameScore);
+    	}
+    	return score;
+    }
     public String getLink(){
     	return this.link;
+    }
+    public String getbaselink(){
+    	return this.baselink;
+    }
+    public String getimgSrc(){
+    	return this.imgSrc;
     }
     public String getDescription(){
     	return this.description;

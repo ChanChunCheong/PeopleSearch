@@ -39,14 +39,16 @@ export default {
     */
     addTodo (newTodo) {
       var params = new URLSearchParams()
-      const { name, location } = newTodo
+      const { name, location, keyword } = newTodo
       params.append('name', name)
       params.append('location', location)
+      params.append('keyword', keyword)
       console.log(name)
       console.log(location)
+      console.log(keyword)
       AXIOS.get('/all?' + params)
         .then(res => {
-          // this.todos = res.data
+          this.todos = res.data
           console.log(res.data)
           console.log(params.toString())
         })

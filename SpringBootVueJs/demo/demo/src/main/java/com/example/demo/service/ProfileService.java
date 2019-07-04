@@ -27,6 +27,8 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,15 +115,16 @@ public class ProfileService {
     	        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     	        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
     	        searchSourceBuilder.size(58);
+    	        searchSourceBuilder.sort(new FieldSortBuilder("nameScore").order(SortOrder.DESC));
     	        searchRequest.source(searchSourceBuilder);
     	        SearchResponse searchResponse =
     	                client.search(searchRequest, RequestOptions.DEFAULT);
     	        return getSearchResult(searchResponse);
-    	        /*
-    	        List<ProfileDocument> pd = new ArrayList<ProfileDocument>(); 
-    	        pd = getSearchResult(searchResponse);
-    	        System.out.println(pd.get(1).getName());
-    	        */
+    	        
+//    	        List<ProfileDocument> pd = new ArrayList<ProfileDocument>(); 
+//    	        pd = getSearchResult(searchResponse);
+//    	        System.out.println(pd.get(1).getbaselink());
+//    	        return pd;
          } catch (ElasticsearchException e) {
              	System.out.println(e);
              return null;

@@ -3,6 +3,7 @@
     <form @submit.prevent="addTodo">
       <input type="text" v-model="name" name="name" placeholder="Name">
       <input type="text" v-model="location" name="location" placeholder="Location">
+      <input type="text" v-model="keyword" name="keyword" placeholder="Keyword">
       <input type="submit" value="Search" class="btn">
     </form>
   </div>
@@ -15,19 +16,22 @@ export default {
   data () {
     return {
       name: '',
-      location: ''
+      location: '',
+      keyword: ''
     }
   },
   methods: {
     addTodo () {
       const newTodo = {
         name: this.name,
-        location: this.location
+        location: this.location,
+        keyword: this.keyword
       }
       // Send up to parent
       this.$emit('add-todo', newTodo)
       this.name = ''
       this.location = ''
+      this.keyword = ''
     }
   }
 }

@@ -63,6 +63,8 @@ public class Worker implements IWorker {
 	    mapper.setSerializationInclusion(Inclusion.NON_EMPTY);
 	  }
 	  */
+	  public Worker() {
+	  }
 	  public Worker(Producer producer) {
 		  this.producer = producer;
 	  }
