@@ -3,7 +3,7 @@
     <h1>People Search Aggregator</h1>
     <div id="nav">
       <router-link to="/home">Home</router-link> |
-      <router-link to="/about">Search</router-link>
+      <router-link to="/searchResults">Search Results</router-link>
     </div>
   </header>
 </template>
