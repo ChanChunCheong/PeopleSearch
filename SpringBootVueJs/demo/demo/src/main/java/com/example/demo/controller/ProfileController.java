@@ -97,24 +97,30 @@ public class ProfileController {
         System.out.println("location is: " + location);
         System.out.println("keyword is: " + keyword);
         producer.sendMessage("test", mapper.writeValueAsString(resultMap));
-        //Consumer receive the message that scraping is done. 
-//        while (true) {
-//        	int flag = 0;
-//        	System.out.println("in");
-//        	ConsumerRecords<String, String> records = consumer.poll(POLL_WAIT_TIME);
-//        	for (ConsumerRecord<String, String> record : records) {
-//        		System.out.println(record.value().equals("done"));
-//        		if (record.value().equals("done")){
-//        			System.out.println("yes");
-//        			flag = 1; 
-//        			System.out.println(flag);
-//        			break;
-//        		}
-//        	}
-//        	if (flag == 1)
-//        	break;
-//        }
+//        Consumer receive the message that scraping is done. 
+        while (true) {
+        	int flag = 0;
+        	System.out.println("in");
+        	ConsumerRecords<String, String> records = consumer.poll(POLL_WAIT_TIME);
+        	for (ConsumerRecord<String, String> record : records) {
+        		System.out.println(record.value().equals("done"));
+        		if (record.value().equals("done")){
+        			System.out.println("yes");
+        			flag = 1; 
+        			System.out.println(flag);
+        			break;
+        		}
+        	}
+        	if (flag == 1)
+        	break;
+        }
         System.out.println("yes2");
+    	return service.findAll();
+    }
+    
+    @GetMapping("/init")
+    @ResponseBody
+    public List<ProfileDocument> findAll() throws Exception {
     	return service.findAll();
     }
 
