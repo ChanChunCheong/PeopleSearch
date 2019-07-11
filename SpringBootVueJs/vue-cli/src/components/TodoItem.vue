@@ -18,7 +18,6 @@
         <b-card-text>
           {{todo.description}}
         </b-card-text>
-        <!-- <b-button v-bind:href="todo.baselink" variant="primary">@{{todo.link}}</b-button> -->
       </b-card-body>
       <div slot="footer"><b-button v-bind:href="todo.baselink" variant="primary">@{{todo.link}}</b-button></div>
     </b-card>

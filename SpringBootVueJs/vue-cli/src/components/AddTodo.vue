@@ -45,12 +45,22 @@
             required
           ></b-form-select>
         </b-form-group>
+        <b-form-group label="Social Media Platforms:">
+          <b-form-select
+            id="input-4"
+            v-model="selected"
+            :options="options"
+            name="platforms"
+            required
+          ></b-form-select>
+        </b-form-group>
       </b-form>
      </b-modal>
   </div>
 </template>
 
 <script>
+import CountryList from 'country-list'
 // import uuid from 'uuid';
 export default {
   name: 'AddTodo',
@@ -60,7 +70,12 @@ export default {
       nameState: null,
       location: '',
       keyword: '',
-      locations: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn']
+      locations: CountryList.getNames(),
+      selected: '', // Must be an array reference!
+      options: [
+        { text: 'Twitter', value: 'twitter' },
+        { text: 'Facebook', value: 'facebook' }
+      ]
     }
   },
   methods: {
@@ -80,6 +95,7 @@ export default {
       }
       // Send up to parent
       this.$emit('add-todo', newTodo)
+      console.log('emitted from addtodo')
       this.name = ''
       this.location = ''
       this.keyword = ''
