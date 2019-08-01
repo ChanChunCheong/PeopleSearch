@@ -1,7 +1,7 @@
 <template>
 <div>
-  <b-navbar sticky="true" toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">People Search Agregator</b-navbar-brand>
+  <b-navbar v-bind:sticky="true" toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">People Search Aggregator</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -17,7 +17,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <b-modal v-model="modalShow" centered hide-footer="true" hide-header="true" no-close-on-backdrop = "true">
+  <b-modal v-model="modalShow" centered v-bind:hide-footer="true" v-bind:hide-header="true" v-bind:no-close-on-backdrop="true">
     <div class="d-block text-center">
       <h3>Your search result is curently processing!</h3>
       <h4>Please wait for a moment</h4>
@@ -31,6 +31,7 @@
 import AddTodo from '../AddTodo'
 import {AXIOS} from '../../http-common'
 import {EventBus} from '../../main'
+// import { platform } from 'os';
 
 export default {
   name: 'Header',
@@ -46,18 +47,33 @@ export default {
     addTodo (newTodo) {
       // Send up to parent
       // this.$emit('add-todo', newTodo)
-      var params = new URLSearchParams()
-      const { name, location, keyword } = newTodo
+      var params = new FormData()
+      const { name, location, keyWords, platforms, numPage, file } = newTodo
+      var list = []
+      var i
+      for (i = 0; i < keyWords.length; i++) {
+        list.push(keyWords[i].word)
+      }
       params.append('name', name)
       params.append('location', location)
-      params.append('keyword', keyword)
+      params.append('numPage', numPage)
+      params.append('keywords', list)
+      params.append('platforms', platforms)
+      params.append('file', file)
       console.log(name)
+      console.log(numPage)
       console.log(location)
-      console.log(keyword)
-      AXIOS.get('/all?' + params)
+      console.log(list)
+      console.log(platforms)
+      console.log(file)
+      AXIOS.post('/all', params, {headers: {'Content-Type': 'multipart/form-data'}})
         .then(res => {
           // this.todos = res.data
-          this.$router.push('/searchResults')
+          if (this.$route.name === 'searchResults') {
+            this.$router.go()
+          } else {
+            this.$router.push('/searchResults')
+          }
         })
     },
     show () {

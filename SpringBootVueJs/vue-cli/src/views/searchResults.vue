@@ -1,6 +1,18 @@
 <template>
   <div id="app">
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+     <div>
+      <b-form-select v-model="sessionID" :options="options" size="sm" class="mt-3"></b-form-select>
+      <div class="mt-3">Selected: <strong>{{ sessionID }}</strong></div>
+    </div>
+    <b-tabs pills content-class="mt-3" justified>
+      <b-tab title="Twitter" active>
+        <Todos v-bind:todos="todos_Twitter" v-bind:sessionID="sessionID"/>
+      </b-tab>
+      <b-tab title="Facebook">
+        <!-- change the todos to something else  -->
+        <Todos v-bind:todos="todos_Facebook" v-bind:sessionID="sessionID"/>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -17,32 +29,42 @@ export default {
   },
   data () {
     return {
-      todos: []
+      sessionID: null,
+      options: [
+        { value: 'null', text: 'Please select an option' }
+      ],
+      todos_Twitter: [],
+      todos_Facebook: []
     }
   },
   methods: {
-    // addTodo (newTodo) {
-    //   var params = new URLSearchParams()
-    //   const { name, location, keyword } = newTodo
-    //   params.append('name', name)
-    //   params.append('location', location)
-    //   params.append('keyword', keyword)
-    //   console.log(name)
-    //   console.log(location)
-    //   console.log(keyword)
-    //   AXIOS.get('/all?' + params)
-    //     .then(res => {
-    //       this.todos = res.data
-    //       console.log(res.data)
-    //       console.log(params.toString())
-    //     })
-    //     .catch(err => console.log(err))
-    // },
   },
   created () {
-    AXIOS.get('/init/')
+    AXIOS.get('/initSession/')
       .then(res => {
-        this.todos = res.data
+        var list = []
+        var i
+        for (i = 0; i < res.data.length; i++) {
+          const { name, sessionID } = res.data[i]
+          var session = {}
+          session.value = sessionID
+          session.text = name
+          list.push(session)
+        }
+        this.options = list
+        this.sessionID = res.data[res.data.length - 1].sessionID
+        console.log(this.sessionID)
+      })
+      .catch(err => console.log(err))
+    AXIOS.get('/initTwitter/')
+      .then(res => {
+        this.todos_Twitter = res.data
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
+    AXIOS.get('/initFacebook/')
+      .then(res => {
+        this.todos_Facebook = res.data
         console.log(res.data)
       })
       .catch(err => console.log(err))

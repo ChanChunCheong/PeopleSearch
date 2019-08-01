@@ -3,7 +3,7 @@
     <b-container>
     <b-card-group deck>
     <div v-bind:key="todo.id" v-for="todo in todos">
-      <TodoItem v-bind:todo="todo" v-on:del-todo="$emit('del-todo', todo.id)" />
+      <TodoItem v-if="todo.sessionID === sessionID" v-bind:todo="todo" />
     </div>
     </b-card-group>
     </b-container>
@@ -17,9 +17,15 @@ export default {
   components: {
     TodoItem
   },
-  props: ['todos']
+  props: ['todos', 'sessionID']
 }
 </script>
 
 <style scoped>
+.card-group{
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: space-between;
+}
 </style>
