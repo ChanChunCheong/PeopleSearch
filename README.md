@@ -121,7 +121,7 @@ This is due to repeated scraping of data. Currently, only Facebook has this issu
 
 The workflow is as shown in the picture and follows the sequence 
 
-![Workflow](README_Image\workflow.JPG)
+![Workflow](\README_Image\workflow.JPG)
 
 1. Vue.js will send a search request to Java using Axios 
 2. Java will then send a JSON message containing the search parameters to the python webscraping application using Kafka
@@ -242,11 +242,11 @@ The scoring of the system varies as shown in the table below. The metric is dete
 ## User Interface
 
 ### **Home Page**
-![Search Field](README_Image\UI_home_page.JPG)
+![Search Field](\README_Image\UI_home_page.JPG)
 By clicking on the search button at the top right hand corner, it will pop up a search field.
 
 ### **Search Field**
-![Search Field](README_Image\UI_searchfield.JPG)
+![Search Field](\README_Image\UI_searchfield.JPG)
 The search field has 6 parameters to fill up and choose to generate the search request. To obtain an accurate result, the information provided have to be as accurate and detailed as possible.
 
 >The number of pages selected to scrape will affect the speed of the search request. 
@@ -255,11 +255,11 @@ The search field has 6 parameters to fill up and choose to generate the search r
 
 The respective social media platforms will provide different information of the users. The application will store up to **5 recent search results**. The desired search results can be selected via the options below the navigation bar.
 
-![Twitter](README_Image\UI_searchresults_twitter.JPG)
+![Twitter](\README_Image\UI_searchresults_twitter.JPG)
 
 >The search results for Twitter will **show the location, date joined, aggregate score and the description of the profile**.
 
-![Facebook](README_Image\UI_searchresults_facebook.JPG)
+![Facebook](\README_Image\UI_searchresults_facebook.JPG)
 
 >The search results for Facebook will **show the location, aggregate score, education and work information of the profile**.
 ---
@@ -304,15 +304,15 @@ Since the data retrieved was done by scraping the search results of the social m
 
 The visibility of the profile to the public social media's search engine depends on whether the user has enabled his profile to be searched through the public search engine. As shown in the pictures below, Chong Yew Heng can only be found after he has disabled the privacy setting.
 
-![Privacy](README_Image\dillon_not_found.JPG)
+![Privacy](\README_Image\dillon_not_found.JPG)
 
 Chong Yew Heng's Facebook profile is not found in the Facebook public search engine.
 
-![Privacy](README_Image\dillon_privacy_setting.JPG)
+![Privacy](\README_Image\dillon_privacy_setting.JPG)
 
 The is due to the privacy setting of Chong Yew Heng's Facebook profile has been set to prevent him from being search outside of Facebook search engine.
 
-![Privacy](README_Image\dillon_found.JPG)
+![Privacy](\README_Image\dillon_found.JPG)
 
 By enabling access to the profile outside of Facebook search engine, Chong Yew Heng's profile can now be found.
 
@@ -324,9 +324,9 @@ The results returned by the search engine is highly dependent on the relevance o
 
 To obtain the correct social media profile out of the long list of users with the same name, a close to full name given to be searched is essential. As seen from the pictures below, without surname of the person given in the search, there is a high chance that the person might not be returned by the social media's search engine.
 
-![Privacy](README_Image\chun_cheong_not_found.JPG)
-![Privacy](README_Image\chun_cheong_found_2.JPG)
-![Privacy](README_Image\chun_cheong_found.JPG)
+![Privacy](\README_Image\chun_cheong_not_found.JPG)
+![Privacy](\README_Image\chun_cheong_found_2.JPG)
+![Privacy](\README_Image\chun_cheong_found.JPG)
 
 
 ### **Possibility Of Being Block From Social Media**
